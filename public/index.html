@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./loader.css" />
+    <link rel="stylesheet" href="../src/css/style.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <title>Masory Layout</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="pagination">
+        <button class="btn btn-primary" value="1" data-first="true">1</button>
+        <button class="btn btn-primary" value="2">2</button>
+        <button class="btn btn-primary" value="3">3</button>
+        <button class="btn btn-primary" value="4">4</button>
+        <button class="btn btn-primary" value="5">5</button>
+        <button class="btn btn-primary" value="6" data-last="true">6</button>
+      </div>
+
+      <div class="lds-grid" id="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <h5 class="font-weight-bold">Fila 1</h5>
+          <div id="container"></div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <h5 class="font-weight-bold">Fila 2</h5>
+          <div id="container2"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../dist/main.bundle.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
