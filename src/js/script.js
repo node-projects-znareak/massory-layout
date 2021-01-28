@@ -1,7 +1,7 @@
-import lazyLoad from "./LazyLoadImages.js";
+import lazyLoad from "./lazyLoad.js";
+import { element, makeColumns, getSource } from "./helpers.js";
 
 (() => {
-  const privateProps = new WeakMap();
   class Massory {
     constructor({
       columns = 2,
@@ -11,6 +11,7 @@ import lazyLoad from "./LazyLoadImages.js";
       maxWidth = "100%",
       height = "auto",
       lazyLoad = false,
+      margin,
     } = {}) {
       this.columns = columns;
       this.container = container;
@@ -19,43 +20,11 @@ import lazyLoad from "./LazyLoadImages.js";
       this.height = height;
       this.maxWidth = maxWidth;
       this.lazyLoad = lazyLoad;
-
-      privateProps.set(this, {
-        assigns(e, props = {}) {
-          for (const [k, v] of Object.entries(props)) {
-            e[k] = v;
-          }
-          return e;
-        },
-
-        // arrow function to preserve the context of 'this'
-        element: (tag, props) => {
-          const e = document.createElement(tag);
-          return privateProps.get(this).assigns(e, props);
-        },
-
-        makeColumns: (count) => {
-          let i = 0;
-          const columns = {};
-          while (i < count) {
-            columns["c" + i] = privateProps
-              .get(this)
-              .element("div", { className: "ms-column" });
-            i++;
-          }
-          return columns;
-        },
-
-        getSource: (item) => {
-          if (item.hasOwnProperty("src")) return item.src;
-          return item;
-        },
-      });
+      this.margin = margin;
     }
 
     show(imagesArray, _container = this.container) {
       if (imagesArray.length > 0) {
-        const { element, makeColumns, getSource } = privateProps.get(this);
         const containerGrid = element("div", { className: "ms" });
         const numberImages = imagesArray.length;
         const columnNodesObject = makeColumns(this.columns);
@@ -89,20 +58,24 @@ import lazyLoad from "./LazyLoadImages.js";
             imgNode.onload = () => lazyLoad(imgNode);
           }
 
+          if (this.margin) {
+            gridItemNode.style.margin = this.margin;
+          }
+
           gridItemNode.appendChild(imgNode);
 
           if (indexColumn == this.columns) {
             indexColumn = 0;
           }
 
-          columnNodesObject["c" + indexColumn].appendChild(gridItemNode);
+          columnNodesObject[indexColumn].appendChild(gridItemNode);
           indexColumn++;
         }
 
         for (const columnNode of Object.values(columnNodesObject)) {
           containerGrid.appendChild(columnNode);
         }
-    
+
         if (_container) {
           _container.appendChild(containerGrid);
         } else {

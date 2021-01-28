@@ -11,6 +11,13 @@ const ma = new Massory({
   center: true,
   columns: 3,
   lazyLoad: true,
+  //margin: "5px",
+  breakPoints: {
+    sm: null,
+    md: null,
+    lg: null,
+    margin: null,
+  },
 });
 
 document.addEventListener("DOMContentLoaded", () => getListPhotos(0));
@@ -50,7 +57,7 @@ function getListPhotos(page = 0) {
         src: x.src.large,
         lazy: x.src.small,
       }));
-     // const links = images.map((x) => x.src.large);
+      // const links = images.map((x) => x.src.large);
       loader.style.display = "none";
       photos(links);
       disableButtons(false);
@@ -87,3 +94,8 @@ function photos(images) {
   ma.show(images, container);
   ma.show(images, container2);
 }
+
+window.addEventListener("resize", () => {
+  const media = window.matchMedia("(max-width: 990px)");
+  console.log(media);
+});
