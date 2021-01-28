@@ -1,7 +1,7 @@
 import lazyLoad from "./lazyLoad.js";
 import { element, makeColumns, getSource } from "./helpers.js";
 
-class Massory {
+window.Massory = class {
   constructor({
     columns = 2,
     container = document.body,
@@ -85,4 +85,4 @@ class Massory {
       );
     }
   }
-}
+};
