@@ -1,4 +1,5 @@
 import lazyLoad from "./lazyLoad.js";
+import { CONTAINER_CLASSNAME, ITEM_CLASSNAME } from "./config.js";
 import { element, makeColumns, getSource } from "./helpers.js";
 
 window.Massory = class {
@@ -10,6 +11,7 @@ window.Massory = class {
     maxWidth = "100%",
     height = "auto",
     lazyLoad = false,
+    breakPoints = {},
     margin,
   } = {}) {
     this.columns = columns;
@@ -20,11 +22,18 @@ window.Massory = class {
     this.maxWidth = maxWidth;
     this.lazyLoad = lazyLoad;
     this.margin = margin;
+    this.breakPoints = Object.entries(breakPoints);
+
+    if (this.breakPoints.length) {
+      window.addEventListener("resize", () => {
+        console.log(this.breakPoints);
+      });
+    }
   }
 
   show(imagesArray, _container = this.container) {
     if (imagesArray.length > 0) {
-      const containerGrid = element("div", { className: "ms" });
+      const containerGrid = element("div", { className: CONTAINER_CLASSNAME });
       const numberImages = imagesArray.length;
       const columnNodesObject = makeColumns(this.columns);
       let indexColumn = 0;
@@ -39,11 +48,12 @@ window.Massory = class {
       }
 
       if (this.center) {
-        containerGrid.style.margin = "auto";
+        containerGrid.style.marginLeft = "auto";
+        containerGrid.style.marginRight = "auto";
       }
 
       for (let i = 0; i < numberImages; i++) {
-        const gridItemNode = element("div", { className: "ms-item" });
+        const gridItemNode = element("div", { className: ITEM_CLASSNAME });
         const imgNode = element("img", {
           src: this.lazyLoad ? imagesArray[i].lazy : getSource(imagesArray[i]),
         });
@@ -80,7 +90,7 @@ window.Massory = class {
       }
 
       console.log(
-        "%c[Masonry Layout] Nodos agregados al DOM ✓",
+        "%c[Masonry Layout] Nodes added to the DOM ✓",
         "color: #54e346;"
       );
     }
