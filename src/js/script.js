@@ -28,30 +28,36 @@ window.Massory = class {
     this.maxWidth = maxWidth;
     this.lazyLoad = lazyLoad;
     this.margin = margin;
+    this.breakPoints = breakPoints;
+  }
 
-    if (Object.keys(breakPoints).length) {
-      const inObject = hasPropObj(breakPoints);
+  #fluidColumns(_container) {
+    if (Object.keys(this.breakPoints).length) {
+      const inObject = hasPropObj(this.breakPoints);
+      const containerGrid = _container.querySelector(".ms");
+      const columns = _container.querySelectorAll(".ms > .ms-column");
       window.addEventListener("resize", () => {
-        if (this.containerGrid) {
-          if (queryMd.matches && inObject("md")) {
-            console.log(this.containerGrid)
-            // this.columns = 100 / breakPoints.md.columns + "%";
-
-            console.log(
-              "Hay una prop 'md' y el tamaño de pantalla MEDIANA coincide"
-            );
+        if (queryMd.matches && inObject("md")) {
+          containerGrid.style.flexWrap = "wrap";
+          for (const column of columns) {
+            column.style.flex = "0 1";
+            column.style.flexBasis = this.columns =
+              100 / this.breakPoints.md.columns + "%";
           }
+          // this.columns = 100 / breakPoints.md.columns + "%";
+          console.log(columns);
+        } else {
+          for (const column of columns) {
+            column.style.flexBasis = 0;
+            column.style.flex = "1 1";
+          }
+          containerGrid.style.flexWrap = "nowrap";
         }
       });
     }
   }
 
-  #private(){
-    console.log("Esto es un metodo privado con #")
-  }
-
   show(imagesArray, _container = this.container) {
-    this.#private();
     if (imagesArray.length > 0) {
       const containerGrid = element("div", { className: CONTAINER_CLASSNAME });
       this.containerGrid = containerGrid;
@@ -110,6 +116,7 @@ window.Massory = class {
         this.container.appendChild(containerGrid);
       }
 
+      this.#fluidColumns(_container);
       console.log(
         "%c[Masonry Layout] Nodes added to the DOM ✓",
         "color: #54e346;"

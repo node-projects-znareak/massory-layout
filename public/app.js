@@ -9,13 +9,13 @@ const ma = new Massory({
   width: "100%",
   maxWidth: "1200px",
   center: true,
-  columns: 3,
+  columns: 6,
   lazyLoad: true,
   margin: "5px",
   breakPoints: {
     md: {
       margin: "10px",
-      columns: 1,
+      columns: 2,
     },
   },
 });
