@@ -1,6 +1,12 @@
 import lazyLoad from "./lazyLoad.js";
 import { CONTAINER_CLASSNAME, ITEM_CLASSNAME } from "./config.js";
-import { element, makeColumns, getSource } from "./helpers.js";
+import {
+  element,
+  makeColumns,
+  getSource,
+  hasPropObj,
+  queryMd,
+} from "./helpers.js";
 
 window.Massory = class {
   constructor({
@@ -22,18 +28,33 @@ window.Massory = class {
     this.maxWidth = maxWidth;
     this.lazyLoad = lazyLoad;
     this.margin = margin;
-    this.breakPoints = Object.entries(breakPoints);
 
-    if (this.breakPoints.length) {
+    if (Object.keys(breakPoints).length) {
+      const inObject = hasPropObj(breakPoints);
       window.addEventListener("resize", () => {
-        console.log(this.breakPoints);
+        if (this.containerGrid) {
+          if (queryMd.matches && inObject("md")) {
+            console.log(this.containerGrid)
+            // this.columns = 100 / breakPoints.md.columns + "%";
+
+            console.log(
+              "Hay una prop 'md' y el tamaño de pantalla MEDIANA coincide"
+            );
+          }
+        }
       });
     }
   }
 
+  #private(){
+    console.log("Esto es un metodo privado con #")
+  }
+
   show(imagesArray, _container = this.container) {
+    this.#private();
     if (imagesArray.length > 0) {
       const containerGrid = element("div", { className: CONTAINER_CLASSNAME });
+      this.containerGrid = containerGrid;
       const numberImages = imagesArray.length;
       const columnNodesObject = makeColumns(this.columns);
       let indexColumn = 0;

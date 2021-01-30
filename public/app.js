@@ -11,11 +11,11 @@ const ma = new Massory({
   center: true,
   columns: 3,
   lazyLoad: true,
-  //margin: "5px",
+  margin: "5px",
   breakPoints: {
-    sm: {
+    md: {
       margin: "10px",
-      columns: 2,
+      columns: 1,
     },
   },
 });
@@ -94,8 +94,3 @@ function photos(images) {
   ma.show(images, container);
   ma.show(images, container2);
 }
-
-window.addEventListener("resize", () => {
-  const media = window.matchMedia("(max-width: 990px)");
-  //console.log(media);
-});

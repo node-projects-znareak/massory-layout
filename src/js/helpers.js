@@ -12,6 +12,10 @@ export function element(tag, props) {
   return assigns(e, props);
 }
 
+export function hasProp(obj, prop) {
+  return obj.hasOwnProperty(prop);
+}
+
 export function makeColumns(count) {
   const columns = {};
   for (let i = 0; i < count; i++) {
@@ -21,12 +25,16 @@ export function makeColumns(count) {
 }
 
 export function getSource(item) {
-  if (item.hasOwnProperty("src")) return item.src;
+  if (hasProp(item, "src")) return item.src;
   return item;
 }
 
-function createMedia(size = SM_SIZE, ruleAt = "max-width") {
+export function createMedia(size = SM_SIZE, ruleAt = "max-width") {
   return window.matchMedia(`(${ruleAt}: ${size})`);
+}
+
+export function hasPropObj(obj) {
+  return (prop) => hasProp(obj, prop);
 }
 
 export const querySm = createMedia();
