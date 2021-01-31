@@ -9,14 +9,22 @@ const ma = new Massory({
   width: "100%",
   maxWidth: "1200px",
   center: true,
-  columns: 6,
+  columns: 3,
   lazyLoad: true,
   margin: "5px",
   breakPoints: {
-    md: {
+    // md: {
+    //   margin: "10px",
+    //   columns: 2,
+    // },
+    lg: {
       margin: "10px",
-      columns: 2,
+      columns: 6,
     },
+    // sm: {
+    //   margin: "10px",
+    //   columns: 1,
+    // },
   },
 });
 

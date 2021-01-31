@@ -1,11 +1,18 @@
 import lazyLoad from "./lazyLoad.js";
-import { CONTAINER_CLASSNAME, ITEM_CLASSNAME } from "./config.js";
+import {
+  CONTAINER_CLASSNAME,
+  ITEM_CLASSNAME,
+  mediaQueries,
+} from "./config.js";
+
 import {
   element,
   makeColumns,
   getSource,
   hasPropObj,
-  queryMd,
+  converToPercentage,
+  append,
+  successMessage,
 } from "./helpers.js";
 
 window.Massory = class {
@@ -36,22 +43,27 @@ window.Massory = class {
       const inObject = hasPropObj(this.breakPoints);
       const containerGrid = _container.querySelector(".ms");
       const columns = _container.querySelectorAll(".ms > .ms-column");
+
       window.addEventListener("resize", () => {
-        if (queryMd.matches && inObject("md")) {
-          containerGrid.style.flexWrap = "wrap";
-          for (const column of columns) {
-            column.style.flex = "0 1";
-            column.style.flexBasis = this.columns =
-              100 / this.breakPoints.md.columns + "%";
+        for (const mediaQuerie of mediaQueries) {
+          const { media, query } = mediaQuerie;
+          console.log(query, "=", media.matches);
+          if (media.matches && inObject(query)) {
+            containerGrid.style.flexWrap = "wrap";
+            for (const column of columns) {
+              column.style.flex = "0 1";
+              column.style.flexBasis = converToPercentage(
+                this.breakPoints[query].columns
+              );
+            }
+          } 
+          else {
+            for (const column of columns) {
+              column.style.flexBasis = 0;
+              column.style.flex = "1 1";
+            }
+            containerGrid.style.flexWrap = "nowrap";
           }
-          // this.columns = 100 / breakPoints.md.columns + "%";
-          console.log(columns);
-        } else {
-          for (const column of columns) {
-            column.style.flexBasis = 0;
-            column.style.flex = "1 1";
-          }
-          containerGrid.style.flexWrap = "nowrap";
         }
       });
     }
@@ -59,7 +71,7 @@ window.Massory = class {
 
   show(imagesArray, _container = this.container) {
     if (imagesArray.length > 0) {
-      const containerGrid = element("div", { className: CONTAINER_CLASSNAME });
+      const containerGrid = element("div", { class: CONTAINER_CLASSNAME });
       this.containerGrid = containerGrid;
       const numberImages = imagesArray.length;
       const columnNodesObject = makeColumns(this.columns);
@@ -68,7 +80,6 @@ window.Massory = class {
       containerGrid.style.width = this.width;
       containerGrid.style.maxWidth = this.maxWidth;
       containerGrid.style.height = this.height;
-      containerGrid.setAttribute("data-columns", this.columns);
 
       if (this.columns >= 4) {
         containerGrid.classList.add("ms-fluid");
@@ -80,7 +91,7 @@ window.Massory = class {
       }
 
       for (let i = 0; i < numberImages; i++) {
-        const gridItemNode = element("div", { className: ITEM_CLASSNAME });
+        const gridItemNode = element("div", { class: ITEM_CLASSNAME });
         const imgNode = element("img", {
           src: this.lazyLoad ? imagesArray[i].lazy : getSource(imagesArray[i]),
         });
@@ -96,31 +107,23 @@ window.Massory = class {
           gridItemNode.style.margin = this.margin;
         }
 
-        gridItemNode.appendChild(imgNode);
-
+        append(gridItemNode, imgNode);
         if (indexColumn == this.columns) {
           indexColumn = 0;
         }
 
-        columnNodesObject[indexColumn].appendChild(gridItemNode);
+        append(columnNodesObject[indexColumn], gridItemNode);
         indexColumn++;
       }
 
       for (const columnNode of Object.values(columnNodesObject)) {
-        containerGrid.appendChild(columnNode);
+        append(containerGrid, columnNode);
       }
 
-      if (_container) {
-        _container.appendChild(containerGrid);
-      } else {
-        this.container.appendChild(containerGrid);
-      }
+      append(_container || this.container, containerGrid);
 
       this.#fluidColumns(_container);
-      console.log(
-        "%c[Masonry Layout] Nodes added to the DOM ✓",
-        "color: #54e346;"
-      );
+      successMessage();
     }
   }
 };

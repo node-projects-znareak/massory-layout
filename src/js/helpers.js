@@ -1,8 +1,8 @@
-import { SM_SIZE, MD_SIZE, LG_SIZE, COLUMN_CLASSNAME } from "./config.js";
+import { COLUMN_CLASSNAME } from "./config.js";
 
 export function assigns(e, props) {
   for (const [k, v] of Object.entries(props)) {
-    e[k] = v;
+    e.setAttribute(k, v);
   }
   return e;
 }
@@ -19,7 +19,7 @@ export function hasProp(obj, prop) {
 export function makeColumns(count) {
   const columns = {};
   for (let i = 0; i < count; i++) {
-    columns[i] = element("div", { className: COLUMN_CLASSNAME });
+    columns[i] = element("div", { class: COLUMN_CLASSNAME });
   }
   return columns;
 }
@@ -29,14 +29,33 @@ export function getSource(item) {
   return item;
 }
 
-export function createMedia(size = SM_SIZE, ruleAt = "max-width") {
-  return window.matchMedia(`(${ruleAt}: ${size})`);
+export function createMedia(media) {
+  const {
+    minSize,
+    maxSize,
+    minRuleAt = "min-width",
+    maxRuleAt = "max-width",
+  } = media;
+  if (minSize && maxSize && minRuleAt && maxRuleAt) {
+    return window.matchMedia(
+      `(${minRuleAt}: ${minSize}) and (${maxRuleAt}: ${maxSize})`
+    );
+  }
+  return window.matchMedia(`(${maxRuleAt}: ${maxSize})`);
 }
 
 export function hasPropObj(obj) {
   return (prop) => hasProp(obj, prop);
 }
 
-export const querySm = createMedia();
-export const queryMd = createMedia(MD_SIZE);
-export const queryLg = createMedia(LG_SIZE);
+export function append(father, child) {
+  father.appendChild(child);
+}
+
+export function converToPercentage(columns) {
+  return 100 / columns + "%";
+}
+
+export function successMessage() {
+  console.log("%c[Masonry Layout] Nodes added to the DOM ✓", "color: #54e346;");
+}
