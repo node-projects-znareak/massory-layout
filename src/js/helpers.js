@@ -56,6 +56,10 @@ export function converToPercentage(columns) {
   return 100 / columns + "%";
 }
 
+export function convertToPx(n) {
+  return n + "px";
+}
+
 export function successMessage() {
   console.log("%c[Masonry Layout] Nodes added to the DOM ✓", "color: #54e346;");
 }

@@ -1,9 +1,5 @@
 import lazyLoad from "./lazyLoad.js";
-import {
-  CONTAINER_CLASSNAME,
-  ITEM_CLASSNAME,
-  mediaQueries,
-} from "./config.js";
+import { CONTAINER_CLASSNAME, ITEM_CLASSNAME, mediaQueries } from "./config.js";
 
 import {
   element,
@@ -56,8 +52,7 @@ window.Massory = class {
                 this.breakPoints[query].columns
               );
             }
-          } 
-          else {
+          } else {
             for (const column of columns) {
               column.style.flexBasis = 0;
               column.style.flex = "1 1";

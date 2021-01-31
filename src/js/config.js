@@ -1,24 +1,27 @@
-import { createMedia } from "./helpers.js";
+import { createMedia, convertToPx } from "./helpers.js";
 
-export const SM_SIZE = 640;
-export const MD_SIZE = 990;
-export const LG_SIZE = 1200;
+export const SM_SIZE = 480;
+export const MD_SIZE = 768;
+export const LG_SIZE = 1024;
 
 export const CONTAINER_CLASSNAME = "ms";
 export const COLUMN_CLASSNAME = "ms-column";
 export const ITEM_CLASSNAME = "ms-item";
 
 export const querySm = createMedia({
-  maxSize: SM_SIZE + "px",
+  maxSize: convertToPx(SM_SIZE),
 });
+
 export const queryMd = createMedia({
-  minSize: SM_SIZE - 1 + "px",
-  maxSize: MD_SIZE + "px",
+  minSize: convertToPx(SM_SIZE - 1),
+  maxSize: convertToPx(MD_SIZE),
 });
+
 export const queryLg = createMedia({
-  minSize: MD_SIZE - 1 + "px",
-  maxSize: LG_SIZE + "px",
+  minSize: convertToPx(MD_SIZE - 1),
+  maxSize: convertToPx(LG_SIZE),
 });
+
 export const mediaQueries = [
   {
     query: "sm",
