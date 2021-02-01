@@ -21,12 +21,12 @@
   }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 992px) {
   .ms-fluid {
     flex-wrap: wrap;
 
     & > .ms-column {
-      flex-basis: 50%;
+      flex-basis: 33.333%;
     }
   }
 }

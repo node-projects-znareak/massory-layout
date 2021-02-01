@@ -29,35 +29,12 @@ export function getSource(item) {
   return item;
 }
 
-export function createMedia(media) {
-  const {
-    minSize,
-    maxSize,
-    minRuleAt = "min-width",
-    maxRuleAt = "max-width",
-  } = media;
-  if (minSize && maxSize && minRuleAt && maxRuleAt) {
-    return window.matchMedia(
-      `(${minRuleAt}: ${minSize}) and (${maxRuleAt}: ${maxSize})`
-    );
-  }
-  return window.matchMedia(`(${maxRuleAt}: ${maxSize})`);
-}
-
 export function hasPropObj(obj) {
   return (prop) => hasProp(obj, prop);
 }
 
 export function append(father, child) {
   father.appendChild(child);
-}
-
-export function converToPercentage(columns) {
-  return 100 / columns + "%";
-}
-
-export function convertToPx(n) {
-  return n + "px";
 }
 
 export function successMessage() {

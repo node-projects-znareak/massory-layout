@@ -1,12 +1,10 @@
 import lazyLoad from "./lazyLoad.js";
-import { CONTAINER_CLASSNAME, ITEM_CLASSNAME, mediaQueries } from "./config.js";
+import { CONTAINER_CLASSNAME, ITEM_CLASSNAME } from "./config.js";
 
 import {
   element,
   makeColumns,
   getSource,
-  hasPropObj,
-  converToPercentage,
   append,
   successMessage,
 } from "./helpers.js";
@@ -34,37 +32,8 @@ window.Massory = class {
     this.breakPoints = breakPoints;
   }
 
-  #fluidColumns(_container) {
-    if (Object.keys(this.breakPoints).length) {
-      const inObject = hasPropObj(this.breakPoints);
-      const containerGrid = _container.querySelector(".ms");
-      const columns = _container.querySelectorAll(".ms > .ms-column");
 
-      window.addEventListener("resize", () => {
-        for (const mediaQuerie of mediaQueries) {
-          const { media, query } = mediaQuerie;
-          console.log(query, "=", media.matches);
-          if (media.matches && inObject(query)) {
-            containerGrid.style.flexWrap = "wrap";
-            for (const column of columns) {
-              column.style.flex = "0 1";
-              column.style.flexBasis = converToPercentage(
-                this.breakPoints[query].columns
-              );
-            }
-          } else {
-            for (const column of columns) {
-              column.style.flexBasis = 0;
-              column.style.flex = "1 1";
-            }
-            containerGrid.style.flexWrap = "nowrap";
-          }
-        }
-      });
-    }
-  }
-
-  show(imagesArray, _container = this.container) {
+  show(imagesArray, _container) {
     if (imagesArray.length > 0) {
       const containerGrid = element("div", { class: CONTAINER_CLASSNAME });
       this.containerGrid = containerGrid;
@@ -116,8 +85,7 @@ window.Massory = class {
       }
 
       append(_container || this.container, containerGrid);
-
-      this.#fluidColumns(_container);
+      
       successMessage();
     }
   }
