@@ -1,15 +1,22 @@
 {
   "name": "masory-layout",
   "version": "1.0.0",
-  "description": "Create your own grid of images",
-  "main": "app.js",
+  "description": "Create your own masory layout of images very easy.",
+  "main": "dist/main.bundle.js",
   "scripts": {
     "build": "npx webpack --config webpack.config.js",
     "dev": "npx webpack serve --config ./webpack.config.js --hot --mode=production"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/znareak/massory-layout.git"
+  },
   "keywords": [
     "javascript",
-    "css"
+    "css",
+    "layout",
+    "html",
+    "design"
   ],
   "author": "Libardo Rengifo",
   "license": "ISC",

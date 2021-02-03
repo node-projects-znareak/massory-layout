@@ -7,9 +7,9 @@ export default function lazyLoad(image) {
       const element = entrie[0].target;
       if (
         entrie[0].isIntersecting &&
-        element.src !== element.getAttribute("data-loaded")
+        element.src !== element.getAttribute("data-src")
       ) {
-        element.src = element.getAttribute("data-loaded");
+        element.src = element.getAttribute("data-src");
 
         element.addEventListener("load", (e) => {
           element.classList.add("loaded");

@@ -61,7 +61,7 @@ window.Massory = class {
         });
 
         if (this.lazyLoad) {
-          imgNode.setAttribute("data-loaded", getSource(imagesArray[i]));
+          imgNode.setAttribute("data-src", getSource(imagesArray[i]));
 
           // When the image loads, immediately start using lazy loading
           imgNode.onload = () => lazyLoad(imgNode);

@@ -1,18 +1,25 @@
 const api = "https://api.pexels.com/v1";
 const key = "563492ad6f917000010000013259d56eb0944472b3d0e5b7b5baaa11";
 const btns = document.querySelectorAll(".pagination button");
-const container = document.getElementById("container");
-//const container2 = document.getElementById("container2");
 
 const loader = document.getElementById("loader");
+
+const container = document.getElementById("container");
+
 const ma = new Massory({
   width: "100%",
   maxWidth: "1200px",
   center: true,
-  columns: 8,
+  columns: 6,
   lazyLoad: true,
   margin: "5px",
 });
+
+function photos(images) {
+  // images is an array string
+  ma.show(images, container);
+}
+
 
 document.addEventListener("DOMContentLoaded", () => getListPhotos(0));
 
@@ -36,7 +43,6 @@ function disableButtons(b = true) {
 
 function getListPhotos(page = 0) {
   container.innerHTML = "";
-  //container2.innerHTML = "";
   loader.style.display = "block";
   disableButtons();
   fetch(`${api}/curated?per_page=80&page=${page}`, {
@@ -84,7 +90,3 @@ function setPagesButtons(initPage, dir = "right") {
   }
 }
 
-function photos(images) {
-  ma.show(images, container);
- // ma.show(images, container2);
-}
