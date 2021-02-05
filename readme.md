@@ -13,9 +13,18 @@ Masonry layout is a light and small library to build an adaptable image gallery 
 Massory layout requires [Node.js](https://nodejs.org/) v4+ to run.
 Install the dependencies and devDependencies and start the server.
 
+
 ```sh
 $ cd your_folder
 $ npm i massory-layout
+```
+
+```
+const massory = require("masory-layout").default;
+
+const ma = new massory(...);
+
+ma.show(...)
 ```
 
 # Api
