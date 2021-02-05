@@ -1,6 +1,6 @@
 {
   "name": "masory-layout",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create your own masory layout of images very easy.",
   "main": "index.js",
   "scripts": {
