@@ -3,9 +3,9 @@ const path = require("path");
 module.exports = {
   mode: "production",
   target: "web",
-  entry: path.join(__dirname, "src/js/script.js"),
+  entry: path.join(__dirname, "index.js"),
   output: {
-    filename: "[name].bundle.js",
+    filename: "masory-layout.min.js",
     path: path.resolve(__dirname, "dist"),
   },
   

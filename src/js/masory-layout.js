@@ -9,7 +9,7 @@ import {
   successMessage,
 } from "./helpers.js";
 
-window.Massory = class {
+export default class Massory {
   constructor({
     columns = 2,
     container = document.body,
@@ -31,7 +31,6 @@ window.Massory = class {
     this.margin = margin;
     this.breakPoints = breakPoints;
   }
-
 
   show(imagesArray, _container) {
     if (imagesArray.length > 0) {
@@ -85,8 +84,8 @@ window.Massory = class {
       }
 
       append(_container || this.container, containerGrid);
-      
+
       successMessage();
     }
   }
-};
+}
