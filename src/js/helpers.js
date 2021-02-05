@@ -27,7 +27,7 @@ export function element(tag, props) {
 /**
  * Check if it has an attribute
  * @param {object} obj - The object
- * @param {string} prop -  the property to look for
+ * @param {string} prop -  the property to find
  * @return {boolean} - if prop is in obj
  */
 export function hasProp(obj, prop) {
@@ -36,7 +36,7 @@ export function hasProp(obj, prop) {
 
 /**
  * Create DOM nodes to make the columns
- * @param {number} count - The count columns
+ * @param {number} count - The number of columns
  * @return {object} - An object that has DOM nodes accessible by indexes
  */
 export function makeColumns(count) {
@@ -50,7 +50,7 @@ export function makeColumns(count) {
 /**
  * Returns the origin from which the image will be searched
  * @param {object} item - The object to set the source source of the image
- * @return {string|object} - An object or chain depending on the slow loading flag
+ * @return {string|object} - An object or chain depending on the lazy loading flag
  */
 export function getSource(item) {
   if (hasProp(item, "src")) return item.src;

@@ -1,3 +1,7 @@
+/**
+ * Lazy load to images
+ * @param {HTMLElement} image - Node type image
+ */
 export default function lazyLoad(image) {
   if ("IntersectionObserver" in window) {
     const InObserver = new IntersectionObserver(fn);
